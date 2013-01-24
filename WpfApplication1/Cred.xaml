@@ -1,0 +1,11 @@
+﻿<Window x:Class="com.indes.jogo_roleta.Cred"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Creditos" Height="630" Width="1200" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <MediaElement Name="redangVideo" Source="Videos/Creditos.wmv" LoadedBehavior="Play" Grid.Row="0"/>
+    </Grid>
+</Window>
