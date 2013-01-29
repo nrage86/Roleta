@@ -379,6 +379,7 @@
         <Image Height="16" HorizontalAlignment="Left" Margin="304,337,0,0" Name="bola_36" Source="/WpfApplication1;component/Images/bola.png" Stretch="UniformToFill" VerticalAlignment="Top" Width="15" Visibility="Hidden" />
         <Image Height="16" HorizontalAlignment="Left" Margin="312,327,0,0" Name="bola_13" Source="/WpfApplication1;component/Images/bola.png" Stretch="UniformToFill" VerticalAlignment="Top" Width="15" Visibility="Hidden" />
         <Button Background="#FF00A345" BorderBrush="#FF5F5F5F" BorderThickness="10" Content="X" FontSize="14" FontWeight="Bold" Foreground="#FFEBEBEB" HorizontalAlignment="Right" IsEnabled="True" Margin="0,-8.25,7.75,603.25" Name="Voltar" OverridesDefaultStyle="True" Style="{StaticResource myStyle2}" UseLayoutRounding="False" Width="35" MinWidth="20" MinHeight="20" Click="Voltar_Click" Height="35" />
+        <Image Height="364" HorizontalAlignment="Left" Margin="69,110,0,0" Name="img_animatedBall" Stretch="UniformToFill" VerticalAlignment="Top" Width="331" gif:ImageBehavior.AnimatedSource="/WpfApplication1;component/Images/bola_anim.gif" Visibility="Hidden" Source="/WpfApplication1;component/Images/bola_anim.gif" />
         <GroupBox BorderBrush="{x:Null}" Foreground="{x:Null}" Height="525" HorizontalAlignment="Left" IsEnabled="False" Margin="731,85,0,0" Name="openTable" Style="{StaticResource noBorderGroupBox}" VerticalAlignment="Top" Width="433">
             <Grid Name="tableGrid">
                 <Grid.RowDefinitions>
@@ -545,6 +546,7 @@
                 <Button Content="0 2 3" Foreground="{x:Null}" Grid.Column="2" Height="16" HorizontalAlignment="Right" Margin="0,0,82,506" MinHeight="10" MinWidth="10" Name="btn_tri2" Style="{StaticResource myStyle4}" VerticalAlignment="Bottom" Width="17" Grid.RowSpan="2" Click="btn_multiple_MouseClick" MouseEnter="btn_multiple_MouseEnter" MouseLeave="btn_multiple_MouseLeave" />
             </Grid>
         </GroupBox>
-        <Image Height="364" HorizontalAlignment="Left" Margin="69,110,0,0" Name="img_animatedBall" Stretch="UniformToFill" VerticalAlignment="Top" Width="331" gif:ImageBehavior.AnimatedSource="/WpfApplication1;component/Images/bola_anim.gif" Visibility="Hidden" />
+        <TextBox Height="457" HorizontalAlignment="Left" Margin="14,136,0,0" Name="textBox_numList" VerticalAlignment="Top" Width="30" Text="11" AcceptsReturn="False" CharacterCasing="Upper" IsReadOnly="True" TextWrapping="Wrap" MaxLength="2" FontSize="20" FontWeight="Bold" Foreground="#FFA7A7A7" Background="{x:Null}" AcceptsTab="False" TextAlignment="Left" BorderBrush="{x:Null}" IsEnabled="True" SelectionOpacity="0" IsHitTestVisible="False" Focusable="False" BorderThickness="0" AllowDrop="False" />
+        <Label Content="00" Height="45" HorizontalAlignment="Left" Margin="12,89,0,0" Name="lbl_rouletteNum" VerticalAlignment="Top" Width="45" Foreground="White" FontSize="30" FontWeight="Bold" FontStretch="Normal" />
     </Grid>
 </Window>

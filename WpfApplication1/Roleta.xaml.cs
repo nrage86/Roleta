@@ -37,11 +37,10 @@ namespace com.indes.jogo_roleta
             new System.Windows.Threading.DispatcherTimer();
         private Image bola = new Image();
         private int bet_value = 0;
-        private int balance = 0;
+        private int balance = 200;
         private int rouletteNumber;
 
-
-        Canvas myCanvas = new Canvas();
+        Canvas tableCanvas = new Canvas();
         Image imgChip = new Image();
 
         /*******************************************************************************************
@@ -51,28 +50,11 @@ namespace com.indes.jogo_roleta
         {
             InitializeComponent();
             populateArrays();
-            balance = 200;
             refreshBalance();
+            tableGrid.Children.Add(tableCanvas);
             lbl_hint.Content = "Selecione a ficha para apostar!";
-
-
-
-
-
-
-
-            /*
-            //** Adiciona uma ficha ao ecra
-            imgChip.Source = new BitmapImage(new Uri("pack://application:,,,/Images/Ficha.png"));
-
-            Canvas.SetTop(imgChip, 0);
-            Canvas.SetLeft(imgChip, 0);
-            imgChip.Width = 30;
-            imgChip.Height = 30;
-            myCanvas.Children.Add(imgChip);
-            Canvas.SetZIndex(imgChip, 0);
-            */
-            tableGrid.Children.Add(myCanvas);
+            lbl_rouletteNum.Content = "";
+            textBox_numList.Text = "";
         }
 
         /*******************************************************************************************
@@ -87,7 +69,17 @@ namespace com.indes.jogo_roleta
             luckyRouletteNum = (Button)FindName("btn_" + rouletteNumber);
             luckyRouletteNum.Style = (Style)FindResource("luckyNumber");
             dispatcherTimer.Stop();
+            dispatcherTimer.Tick -= dispatcherTimer_Tick;
+
             refreshBalance();
+
+            if (lbl_rouletteNum.Content.ToString() != "")
+            {
+                textBox_numList.Text = textBox_numList.Text.Insert(textBox_numList.CaretIndex,
+                    lbl_rouletteNum.Content.ToString() + System.Environment.NewLine);
+            }
+
+            lbl_rouletteNum.Content = rouletteNumber.ToString();
         }
 
         /*******************************************************************************************
@@ -133,7 +125,7 @@ namespace com.indes.jogo_roleta
 
             // Configuração e arranque do temporizador
             dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
-            dispatcherTimer.Interval = new TimeSpan(0, 0, 3);
+            dispatcherTimer.Interval = new TimeSpan(0, 0, 2);
             img_animatedBall.Visibility = Visibility.Visible;
             dispatcherTimer.Start();
 
@@ -147,9 +139,9 @@ namespace com.indes.jogo_roleta
                     betNumbers = bet.Split(' ');
                     foreach (String betNumber in betNumbers)
                     {
-                        if (betNumber != "" && rouletteNumber == int.Parse(betNumber))
+                        if (rouletteNumber == int.Parse(betNumber))
                         {
-                            calculateBalance(betNumbers.Length);
+                            calculateBalance(betNumbers.Length,betsNumbers_list.IndexOf(bet));
                             btn_newGame.IsEnabled = true;
                             btn_spin.IsEnabled = false;
                         }
@@ -189,8 +181,7 @@ namespace com.indes.jogo_roleta
          ******************************************************************************************/
         private void btn_multiple_MouseLeave(object sender, MouseEventArgs e)
         {
-            string[] parts = sender.ToString().Split(':');
-            string[] numbers =parts[1].Split(' ');
+            string[] numbers = ((sender as Button).Content as String).Split(' ');
             string[] betNumbers;
 
             // Apaga todos os numeros que estavam acesos 
@@ -236,9 +227,9 @@ namespace com.indes.jogo_roleta
         *******************************************************************************************/
         private void btn_multiple_MouseClick(object sender, RoutedEventArgs e)
         {
-            string[] parts = sender.ToString().Split(':');
             Boolean betExists = false;
             Boolean specialBtnExists = false;
+            int betIndex = -1;
 
             // Se já foi feita aposta neste botao entao remove o botão do array bet_Btn para 
             // retirar a aposta
@@ -248,11 +239,15 @@ namespace com.indes.jogo_roleta
                 {
                     if (betBtn == sender)
                     {
-                        balance += betsValues_list[betsBtns_list.IndexOf(betBtn)];
-                        refreshBalance();
-                        betsValues_list.RemoveAt(betsBtns_list.IndexOf(betBtn));
+                        betIndex = betsBtns_list.IndexOf(betBtn);
+                        balance += betsValues_list[betIndex];
+                        betsValues_list.RemoveAt(betIndex);
+                        tableCanvas.Children.Remove(betsChips_list[betIndex]);
+                        betsChips_list.RemoveAt(betIndex);
                         betsBtns_list.Remove(betBtn);
-                        betsNumbers_list.Remove(parts[1]);
+                        betsNumbers_list.Remove((String)((sender as Button).Content));
+
+                        refreshBalance();
 
                         if(betsBtns_list.Count == 0)
                             btn_spin.IsEnabled = false;
@@ -264,6 +259,8 @@ namespace com.indes.jogo_roleta
                                 betBtn.Style = (Style)FindResource("btn");
                                 specialBtnExists = true;
                             }
+                            // Se não, aplica o estilo nao permanente ao botao, no mouseOver 
+                            //ele apaga normalmente
                             else if (!specialBtnExists)
                                 betBtn.Style = (Style)FindResource("myStyle4");
                         }
@@ -281,7 +278,7 @@ namespace com.indes.jogo_roleta
             else 
             {
                 // Se o botao nao existir no array de apostas bet_Btns então ele é adicionado 
-                // ao array
+                //  ao array
                 if(!betExists)
                 {
                     lbl_hint.Content = "Gire a roleta ou adicione outra aposta!";
@@ -289,51 +286,28 @@ namespace com.indes.jogo_roleta
                     balance += -bet_value;
                     refreshBalance();
                     betsBtns_list.Add(sender as Button);
-                    betsNumbers_list.Add(parts[1]);
+                    betsNumbers_list.Add((String)((sender as Button).Content));
                     betsValues_list.Add(bet_value);
 
-
-
-
-
-
-
-
-
-
+                    //Cria uma nova ficha adiciona-a à mesa de jogo
                     imgChip = new Image();
                     imgChip.Source = new BitmapImage(new Uri("pack://application:,,,/Images/Ficha.png"));
-
                     imgChip.Name = "imgChip_" + (String)((sender as Button).Name);
-
-                    Canvas.SetTop(imgChip, 0);
-                    Canvas.SetLeft(imgChip, 0);
                     imgChip.Width = 30;
                     imgChip.Height = 30;
-
+                    imgChip.IsHitTestVisible = false;
                     betsChips_list.Add(imgChip);
+                    tableCanvas.Children.Add(imgChip);
 
-                    myCanvas.Children.Add(imgChip);
-                    //tableGrid.Children.Add(myCanvas);
-                    Canvas.SetZIndex(imgChip, 0);
-
-                    //** Posiciona a ficha no botao/numero escolhido
+                    // Posiciona a ficha no botao/numero escolhido
                     Point relativePoint = (sender as Button).TransformToAncestor(tableGrid)
                               .Transform(new Point(0, 0));
+                    // O centroX e centroY são a altura e largura (a dividir por 2) do botao seleccionado.
+                    //  Serve para alinhar as fichas ao centro dos botões
                     double centroX=(sender as Button).ActualWidth / 2;
                     double centroY=(sender as Button).ActualHeight / 2;
                     Canvas.SetTop(imgChip, relativePoint.Y + centroY - imgChip.Height / 2);
                     Canvas.SetLeft(imgChip, relativePoint.X + centroX - imgChip.Width / 2);
-
-
-
-
-
-
-
-
-
-
 
                 }
             }
@@ -345,8 +319,6 @@ namespace com.indes.jogo_roleta
         *******************************************************************************************/
         private void chip_Click(object sender, RoutedEventArgs e)
         {
-            string[] parts = sender.ToString().Split(':');
-
             if (balance < 0)
             {
                 MessageBox.Show("Não tem saldo suficiente!", "Informação");
@@ -356,7 +328,7 @@ namespace com.indes.jogo_roleta
                 lbl_hint.Content = "Selecione os números em que pretende fazer uma aposta!";
 
                 openTable.IsEnabled = true;
-                bet_value = int.Parse(parts[1]);
+                bet_value = int.Parse((String)((sender as Button).Content));
 
                 foreach (Button chipBtn in allChipBtns_array)
                 {
@@ -394,10 +366,10 @@ namespace com.indes.jogo_roleta
          * calculateBalance
          * - Calcula o saldo
         *******************************************************************************************/
-        private void calculateBalance(int betNumbersCount)
+        private void calculateBalance(int betNumbersCount, int betWin)
         {
             // Este calculo inclui o lucro + o valor da aposta
-            balance += bet_value * 36 / (betNumbersCount-1);
+            balance += betsValues_list[betWin] * 36 / (betNumbersCount);
         }
 
         /******************************************************************************************* 
@@ -409,6 +381,9 @@ namespace com.indes.jogo_roleta
             betsNumbers_list.Clear();
             betsValues_list.Clear();
             betsBtns_list.Clear();
+            betsChips_list.Clear();
+
+            tableCanvas.Children.Clear();
 
             foreach (Button numBtn in allNumBtns_array)
             {
