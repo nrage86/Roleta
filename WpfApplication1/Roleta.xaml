@@ -104,8 +104,8 @@
                             x:Name="Border"  
                             CornerRadius="100" 
                             BorderThickness="6"
-                            Background="#212121"
-                            BorderBrush="#F2F2F2">
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="#00F2F2F2">
                             <ContentPresenter 
                                   Margin="2"
                                   HorizontalAlignment="Center"
@@ -120,10 +120,11 @@
                                 <Setter TargetName="Border" Property="BorderBrush" Value="#E8E8E8" />
                             </Trigger>
                             <Trigger Property="IsMouseOver" Value="true">
-                                <Setter TargetName="Border" Property="Background" Value="#474747" />
+                                
+                                <Setter TargetName="Border" Property="BorderBrush" Value="#60F2F2F2" />
                             </Trigger>
                             <Trigger Property="IsPressed" Value="true">
-                                <Setter TargetName="Border" Property="Background" Value="#474747" />
+                                
                                 <Setter TargetName="Border" Property="BorderBrush" Value="#E8E8E8" />
                             </Trigger>
                             <Trigger Property="IsEnabled" Value="false">
@@ -144,7 +145,7 @@
                             x:Name="Border"  
                             CornerRadius="100" 
                             BorderThickness="6"
-                            Background="#474747"
+                            Background="{TemplateBinding Background}"
                             BorderBrush="#F2F2F2">
                             <ContentPresenter 
                                   Margin="2"
@@ -321,7 +322,7 @@
         </Style>
     </Window.Resources>
     
-    <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Width="1200" Height="630" Name="layoutGrid">
+    <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Width="1200" Height="630" Name="layoutGrid" MinHeight="60" MinWidth="60">
         <Grid.ColumnDefinitions>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -332,12 +333,36 @@
         <Image Height="349" HorizontalAlignment="Left" Margin="63,124,0,0" Name="img_roulettte" Stretch="UniformToFill" VerticalAlignment="Top" Width="352" Source="/WpfApplication1;component/Images/Roleta.png" />
         <Button Content="Girar a Roleta" HorizontalAlignment="Right" Margin="0,187,511,344" Name="btn_spin" Width="208" Click="btn_spin_MouseLeftClick" FontSize="18" FontWeight="Bold" Foreground="#FFE2E2E2" Background="#FF00A345" BorderBrush="#FF5F5F5F" BorderThickness="10" OverridesDefaultStyle="True" UseLayoutRounding="False" Style="{StaticResource myStyle2}" IsEnabled="False"></Button>
         <Label Content="Saldo :" FontSize="30" FontWeight="Bold" Foreground="#FFFFC400" Height="45" HorizontalAlignment="Left" Margin="83,16,0,0" Name="lbl_saldo" VerticalAlignment="Top" Width="292" />
-        <Button Content="1" Height="60" HorizontalAlignment="Left" Margin="77,549,0,0" Name="chipBtn_1" VerticalAlignment="Top" Width="60" Style="{StaticResource chip}" FontSize="16" FontWeight="Bold" Foreground="#FFFFBD00" FontFamily="Arial" MinWidth="60" MinHeight="60" Click="chip_Click" ClickMode="Release" />
-        <Button Content="5" Height="60" HorizontalAlignment="Left" Margin="152,549,0,0" Name="chipBtn_5" VerticalAlignment="Top" Width="60" Style="{StaticResource chip}" FontSize="16" FontWeight="Bold" Foreground="#FFFFBD00" FontFamily="Arial" MinWidth="60" MinHeight="60" Click="chip_Click" ClickMode="Release" />
-        <Button Content="10" Height="60" HorizontalAlignment="Left" Margin="227,549,0,0" Name="chipBtn_10" VerticalAlignment="Top" Width="60" Style="{StaticResource chip}" FontSize="16" FontWeight="Bold" Foreground="#FFFFBD00" FontFamily="Arial" MinWidth="60" MinHeight="60" Click="chip_Click" ClickMode="Release" />
-        <Button Content="50" FontFamily="Arial" FontSize="16" FontWeight="Bold" Foreground="#FFFFBD00" Height="60" HorizontalAlignment="Left" Margin="377,549,0,0" MinHeight="60" MinWidth="60" Name="chipBtn_50" Style="{StaticResource chip}" VerticalAlignment="Top" Width="60" Click="chip_Click" ClickMode="Release" />
-        <Button Content="20" FontFamily="Arial" FontSize="16" FontWeight="Bold" Foreground="#FFFFBD00" Height="60" HorizontalAlignment="Left" Margin="302,549,0,0" MinHeight="60" MinWidth="60" Name="chipBtn_20" Style="{StaticResource chip}" VerticalAlignment="Top" Width="60" Click="chip_Click" ClickMode="Release" />
-        <Button Content="100" FontFamily="Arial" FontSize="16" FontWeight="Bold" Foreground="#FFFFBD00" Height="60" HorizontalAlignment="Left" Margin="452,549,0,0" MinHeight="60" MinWidth="60" Name="chipBtn_100" Style="{StaticResource chip}" VerticalAlignment="Top" Width="60" Click="chip_Click" OpacityMask="Black" ClickMode="Release" />
+        <Button Content="1" Height="60" HorizontalAlignment="Left" Margin="77,549,0,0" Name="chipBtn_1" VerticalAlignment="Top" Width="60" Style="{StaticResource chip}" FontSize="16" FontWeight="Bold" Foreground="{x:Null}" FontFamily="Arial" MinWidth="60" MinHeight="60" Click="chip_Click" ClickMode="Release">
+            <Button.Background>
+                <ImageBrush ImageSource="/WpfApplication1;component/Images/Ficha5.png" />
+            </Button.Background>
+        </Button>
+        <Button Content="5" Height="60" HorizontalAlignment="Left" Margin="152,549,0,0" Name="chipBtn_5" VerticalAlignment="Top" Width="60" Style="{StaticResource chip}" FontSize="16" FontWeight="Bold" Foreground="{x:Null}" FontFamily="Arial" MinWidth="60" MinHeight="60" Click="chip_Click" ClickMode="Release">
+            <Button.Background>
+                <ImageBrush ImageSource="/WpfApplication1;component/Images/Ficha6.png" />
+            </Button.Background>
+        </Button>
+        <Button Content="10" Height="60" HorizontalAlignment="Left" Margin="227,549,0,0" Name="chipBtn_10" VerticalAlignment="Top" Width="60" Style="{StaticResource chip}" FontSize="16" FontWeight="Bold" Foreground="{x:Null}" FontFamily="Arial" MinWidth="60" MinHeight="60" Click="chip_Click" ClickMode="Release">
+            <Button.Background>
+                <ImageBrush ImageSource="/WpfApplication1;component/Images/Ficha4.png" />
+            </Button.Background>
+        </Button>
+        <Button Content="50" FontFamily="Arial" FontSize="16" FontWeight="Bold" Foreground="{x:Null}" Height="60" HorizontalAlignment="Left" Margin="377,549,0,0" MinHeight="60" MinWidth="60" Name="chipBtn_50" Style="{StaticResource chip}" VerticalAlignment="Top" Width="60" Click="chip_Click" ClickMode="Release" OverridesDefaultStyle="True" DataContext="{Binding}">
+            <Button.Background>
+                <ImageBrush ImageSource="/WpfApplication1;component/Images/Ficha2.png" />
+            </Button.Background>
+        </Button>
+        <Button Content="20" FontFamily="Arial" FontSize="16" FontWeight="Bold" Foreground="{x:Null}" Height="60" HorizontalAlignment="Left" Margin="302,549,0,0" MinHeight="60" MinWidth="60" Name="chipBtn_20" Style="{StaticResource chip}" VerticalAlignment="Top" Width="60" Click="chip_Click" ClickMode="Release">
+            <Button.Background>
+                <ImageBrush ImageSource="/WpfApplication1;component/Images/Ficha.png" />
+            </Button.Background>
+        </Button>
+        <Button Content="100" FontFamily="Arial" FontSize="16" FontWeight="Bold" Foreground="{x:Null}" Height="60" HorizontalAlignment="Left" Margin="452,549,0,0" MinHeight="40" MinWidth="40" Name="chipBtn_100" Style="{StaticResource chip}" VerticalAlignment="Top" Width="60" Click="chip_Click" OpacityMask="Black" ClickMode="Release">
+            <Button.Background>
+                <ImageBrush ImageSource="/WpfApplication1;component/Images/Ficha3.png" />
+            </Button.Background>
+        </Button>
         <Label Content="Dica :" Height="36" Margin="447,8,702,0" Name="lbl_hintTitle" VerticalAlignment="Top" Foreground="#FFE8E8E8" FontSize="16" FontWeight="Bold" />
         <Label Content="Texto" FontSize="13" FontWeight="Normal" Foreground="#FFC4C4C4" Height="26" HorizontalAlignment="Left" Margin="499,11,0,0" Name="lbl_hint" VerticalAlignment="Top" />
         <Button Content="Novo Jogo" Height="99" HorizontalAlignment="Left" Margin="481,308,0,0" Name="btn_newGame" VerticalAlignment="Top" Width="208" Click="btn_newGame_Click" IsEnabled="True" Style="{StaticResource myStyle2}" Foreground="#FFDBDBDB" FontWeight="Bold" FontSize="18" ForceCursor="False" Cursor="Hand" Visibility="Hidden"></Button>

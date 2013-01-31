@@ -135,6 +135,11 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Resource Include="Images\Ficha.png" />
+    <Resource Include="Images\Ficha2.png" />
+    <Resource Include="Images\Ficha3.png" />
+    <Resource Include="Images\Ficha4.png" />
+    <Resource Include="Images\Ficha5.png" />
+    <Resource Include="Images\Ficha6.png" />
     <Content Include="Videos\Creditos.wmv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

@@ -37,7 +37,7 @@ namespace com.indes.jogo_roleta
             new System.Windows.Threading.DispatcherTimer();
         private Image bola = new Image();
         private int bet_value = 0;
-        private int balance = 200;
+        private int balance = 1000;
         private int rouletteNumber;
 
         Canvas tableCanvas = new Canvas();
@@ -291,7 +291,32 @@ namespace com.indes.jogo_roleta
 
                     //Cria uma nova ficha adiciona-a à mesa de jogo
                     imgChip = new Image();
-                    imgChip.Source = new BitmapImage(new Uri("pack://application:,,,/Images/Ficha.png"));
+
+                    switch (bet_value){
+                        case (1):
+                            imgChip.Source = new BitmapImage(new Uri("pack://application:,,,/Images/Ficha5.png"));
+                            break;
+                        case (5):
+                            imgChip.Source = new BitmapImage(new Uri("pack://application:,,,/Images/Ficha6.png"));
+                            break;
+                        case (10):
+                            imgChip.Source = new BitmapImage(new Uri("pack://application:,,,/Images/Ficha4.png"));
+                            break;
+                        case (20):
+                            imgChip.Source = new BitmapImage(new Uri("pack://application:,,,/Images/Ficha.png"));
+                            break;
+                        case (50):
+                            imgChip.Source = new BitmapImage(new Uri("pack://application:,,,/Images/Ficha2.png"));
+                            break;
+                        case (100):
+                            imgChip.Source = new BitmapImage(new Uri("pack://application:,,,/Images/Ficha3.png"));
+                            break;
+                        default:
+                            imgChip.Source = new BitmapImage(new Uri("pack://application:,,,/Images/Ficha.png"));
+                            break;
+                    }
+
+                    
                     imgChip.Name = "imgChip_" + (String)((sender as Button).Name);
                     imgChip.Width = 30;
                     imgChip.Height = 30;
