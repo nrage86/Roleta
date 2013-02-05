@@ -117,6 +117,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Resource Include="Images\chip5.png" />
     <Resource Include="Images\Menu.png" />
     <Resource Include="Images\Mesa.png" />
     <Resource Include="Images\bola_anim.gif" />
@@ -134,12 +135,11 @@
     <Content Include="Captivate\standard.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Resource Include="Images\Ficha.png" />
-    <Resource Include="Images\Ficha2.png" />
-    <Resource Include="Images\Ficha3.png" />
-    <Resource Include="Images\Ficha4.png" />
-    <Resource Include="Images\Ficha5.png" />
-    <Resource Include="Images\Ficha6.png" />
+    <Resource Include="Images\chip1.png" />
+    <Resource Include="Images\chip10.png" />
+    <Resource Include="Images\chip100.png" />
+    <Resource Include="Images\chip50.png" />
+    <Resource Include="Images\chip20.png" />
     <Content Include="Videos\Creditos.wmv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

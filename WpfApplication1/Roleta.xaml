@@ -3,10 +3,36 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:gif="http://wpfanimatedgif.codeplex.com"
         Title="Roleta" ResizeMode="CanMinimize" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="630" Width="1200" WindowStartupLocation="CenterScreen" WindowStyle="None">
+    
     <Window.Background>
         <ImageBrush ImageSource="/WpfApplication1;component/Images/Mesa.png" />
     </Window.Background>
+
     <Window.Resources>
+
+
+
+
+
+
+        <Storyboard x:Key="teste">
+            <DoubleAnimation 
+                Storyboard.TargetProperty="Opacity"
+                From="1"
+                To="0"
+                RepeatBehavior="10x"
+                AutoReverse="True"
+                Duration="0:0:0.3"/>
+        </Storyboard>
+
+
+
+
+
+
+
+
+
         <Style x:Key="myStyle2" TargetType="Button">
             <Setter Property="SnapsToDevicePixels" Value="true"/>
             <Setter Property="OverridesDefaultStyle" Value="true"/>
@@ -29,6 +55,28 @@
                                   RecognizesAccessKey="True"/>
                         </Border>
                         <ControlTemplate.Triggers>
+
+                            <!--
+                            <EventTrigger RoutedEvent="Mouse.MouseEnter">
+                                <EventTrigger.Actions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Duration="0:0:0.4" Storyboard.TargetProperty="FontSize"
+                                                 To="22"  />
+
+                                            <DoubleAnimation 
+                                                 Storyboard.TargetProperty="Opacity"
+                                                 From="0"
+                                                 To="1"
+                                                 RepeatBehavior="10x"
+                                                 AutoReverse="True"
+                                                 Duration="0:0:0.2"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger.Actions>
+                            </EventTrigger>
+                            -->
+  
                             <Trigger Property="IsKeyboardFocused" Value="true">
                                 <Setter TargetName="Border" Property="BorderBrush" Value="#E8E8E8" />
                             </Trigger>
@@ -45,6 +93,50 @@
                             <Trigger Property="IsEnabled" Value="false">
                                 <Setter TargetName="Border" Property="Background" Value="#969696" />
                                 <Setter TargetName="Border" Property="BorderBrush" Value="#E8E8E8" />
+                                <Setter Property="Opacity" Value="0.5"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="btn_rouletteSpinStyle" TargetType="Button">
+            <Setter Property="SnapsToDevicePixels" Value="true"/>
+            <Setter Property="OverridesDefaultStyle" Value="true"/>
+            <Setter Property="MinHeight" Value="23"/>
+            <Setter Property="MinWidth" Value="75"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border 
+                            x:Name="Border"  
+                            CornerRadius="500" 
+                            BorderThickness="0"
+                            Background="#00212121"
+                            BorderBrush="#00E8E8E8">
+                            <ContentPresenter 
+                                  Margin="2"
+                                  HorizontalAlignment="Center"
+                                  VerticalAlignment="Center"
+                                  RecognizesAccessKey="True"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsKeyboardFocused" Value="true">
+                                <Setter TargetName="Border" Property="BorderBrush" Value="#E8E8E8" />
+                            </Trigger>
+                            <Trigger Property="IsDefaulted" Value="true">
+                                <Setter TargetName="Border" Property="BorderBrush" Value="#E8E8E8" />
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter TargetName="Border" Property="Background" Value="#50FFFFFF" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter TargetName="Border" Property="Background" Value="#90FFFFFF" />
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter TargetName="Border" Property="Background" Value="#00969696" />
+                                <Setter TargetName="Border" Property="BorderBrush" Value="#00E8E8E8" />
                                 <Setter Property="Opacity" Value="0.5"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
@@ -127,11 +219,6 @@
                                 
                                 <Setter TargetName="Border" Property="BorderBrush" Value="#E8E8E8" />
                             </Trigger>
-                            <Trigger Property="IsEnabled" Value="false">
-                                <Setter TargetName="Border" Property="Background" Value="#969696" />
-                                <Setter TargetName="Border" Property="BorderBrush" Value="#E8E8E8" />
-                                <Setter Property="Opacity" Value="0.5"/>
-                            </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
@@ -165,9 +252,7 @@
                                 <Setter TargetName="Border" Property="BorderBrush" Value="#E8E8E8" />
                             </Trigger>
                             <Trigger Property="IsEnabled" Value="false">
-                                <Setter TargetName="Border" Property="Background" Value="#BAA238" />
                                 <Setter TargetName="Border" Property="BorderBrush" Value="#E8E8E8" />
-                                <Setter Property="Opacity" Value="0.5"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -268,7 +353,7 @@
                         <Border 
                             x:Name="Border"  
                             CornerRadius="0" 
-                            BorderThickness="4"
+                            BorderThickness="6"
                             BorderBrush="#FFD900"
                             Background="#50FFD900"
                             Opacity="0.9"
@@ -331,41 +416,11 @@
             <ImageBrush ImageSource="/WpfApplication1;component/Images/Mesa.png" />
         </Grid.Background>
         <Image Height="349" HorizontalAlignment="Left" Margin="63,124,0,0" Name="img_roulettte" Stretch="UniformToFill" VerticalAlignment="Top" Width="352" Source="/WpfApplication1;component/Images/Roleta.png" />
-        <Button Content="Girar a Roleta" HorizontalAlignment="Right" Margin="0,187,511,344" Name="btn_spin" Width="208" Click="btn_spin_MouseLeftClick" FontSize="18" FontWeight="Bold" Foreground="#FFE2E2E2" Background="#FF00A345" BorderBrush="#FF5F5F5F" BorderThickness="10" OverridesDefaultStyle="True" UseLayoutRounding="False" Style="{StaticResource myStyle2}" IsEnabled="False"></Button>
+        <Button Content="Girar a Roleta" HorizontalAlignment="Right" Margin="0,173.274,826.558,206.726" Name="btn_spin" Width="250" Click="btn_spin_MouseLeftClick" FontSize="18" FontWeight="Bold" Foreground="{x:Null}" Background="#FF00A345" BorderBrush="#FF5F5F5F" BorderThickness="10" OverridesDefaultStyle="True" UseLayoutRounding="False" Style="{StaticResource btn_rouletteSpinStyle}" IsEnabled="False" VerticalAlignment="Stretch" Height="250"></Button>
         <Label Content="Saldo :" FontSize="30" FontWeight="Bold" Foreground="#FFFFC400" Height="45" HorizontalAlignment="Left" Margin="83,16,0,0" Name="lbl_saldo" VerticalAlignment="Top" Width="292" />
-        <Button Content="1" Height="60" HorizontalAlignment="Left" Margin="77,549,0,0" Name="chipBtn_1" VerticalAlignment="Top" Width="60" Style="{StaticResource chip}" FontSize="16" FontWeight="Bold" Foreground="{x:Null}" FontFamily="Arial" MinWidth="60" MinHeight="60" Click="chip_Click" ClickMode="Release">
-            <Button.Background>
-                <ImageBrush ImageSource="/WpfApplication1;component/Images/Ficha5.png" />
-            </Button.Background>
-        </Button>
-        <Button Content="5" Height="60" HorizontalAlignment="Left" Margin="152,549,0,0" Name="chipBtn_5" VerticalAlignment="Top" Width="60" Style="{StaticResource chip}" FontSize="16" FontWeight="Bold" Foreground="{x:Null}" FontFamily="Arial" MinWidth="60" MinHeight="60" Click="chip_Click" ClickMode="Release">
-            <Button.Background>
-                <ImageBrush ImageSource="/WpfApplication1;component/Images/Ficha6.png" />
-            </Button.Background>
-        </Button>
-        <Button Content="10" Height="60" HorizontalAlignment="Left" Margin="227,549,0,0" Name="chipBtn_10" VerticalAlignment="Top" Width="60" Style="{StaticResource chip}" FontSize="16" FontWeight="Bold" Foreground="{x:Null}" FontFamily="Arial" MinWidth="60" MinHeight="60" Click="chip_Click" ClickMode="Release">
-            <Button.Background>
-                <ImageBrush ImageSource="/WpfApplication1;component/Images/Ficha4.png" />
-            </Button.Background>
-        </Button>
-        <Button Content="50" FontFamily="Arial" FontSize="16" FontWeight="Bold" Foreground="{x:Null}" Height="60" HorizontalAlignment="Left" Margin="377,549,0,0" MinHeight="60" MinWidth="60" Name="chipBtn_50" Style="{StaticResource chip}" VerticalAlignment="Top" Width="60" Click="chip_Click" ClickMode="Release" OverridesDefaultStyle="True" DataContext="{Binding}">
-            <Button.Background>
-                <ImageBrush ImageSource="/WpfApplication1;component/Images/Ficha2.png" />
-            </Button.Background>
-        </Button>
-        <Button Content="20" FontFamily="Arial" FontSize="16" FontWeight="Bold" Foreground="{x:Null}" Height="60" HorizontalAlignment="Left" Margin="302,549,0,0" MinHeight="60" MinWidth="60" Name="chipBtn_20" Style="{StaticResource chip}" VerticalAlignment="Top" Width="60" Click="chip_Click" ClickMode="Release">
-            <Button.Background>
-                <ImageBrush ImageSource="/WpfApplication1;component/Images/Ficha.png" />
-            </Button.Background>
-        </Button>
-        <Button Content="100" FontFamily="Arial" FontSize="16" FontWeight="Bold" Foreground="{x:Null}" Height="60" HorizontalAlignment="Left" Margin="452,549,0,0" MinHeight="40" MinWidth="40" Name="chipBtn_100" Style="{StaticResource chip}" VerticalAlignment="Top" Width="60" Click="chip_Click" OpacityMask="Black" ClickMode="Release">
-            <Button.Background>
-                <ImageBrush ImageSource="/WpfApplication1;component/Images/Ficha3.png" />
-            </Button.Background>
-        </Button>
         <Label Content="Dica :" Height="36" Margin="447,8,702,0" Name="lbl_hintTitle" VerticalAlignment="Top" Foreground="#FFE8E8E8" FontSize="16" FontWeight="Bold" />
         <Label Content="Texto" FontSize="13" FontWeight="Normal" Foreground="#FFC4C4C4" Height="26" HorizontalAlignment="Left" Margin="499,11,0,0" Name="lbl_hint" VerticalAlignment="Top" />
-        <Button Content="Novo Jogo" Height="99" HorizontalAlignment="Left" Margin="481,308,0,0" Name="btn_newGame" VerticalAlignment="Top" Width="208" Click="btn_newGame_Click" IsEnabled="True" Style="{StaticResource myStyle2}" Foreground="#FFDBDBDB" FontWeight="Bold" FontSize="18" ForceCursor="False" Cursor="Hand" Visibility="Hidden"></Button>
+        <Button Content="Novo Jogo" Margin="497,265,495,266" Name="btn_newGame" Click="btn_newGame_Click" IsEnabled="True" Style="{StaticResource myStyle2}" Foreground="#FFDBDBDB" FontWeight="Bold" FontSize="18" ForceCursor="False" Cursor="Hand" Visibility="Hidden"></Button>
         <Image Height="16" HorizontalAlignment="Left" Margin="223,367,0,0" Name="bola_24" Stretch="UniformToFill" VerticalAlignment="Top" Width="15" Source="/WpfApplication1;component/Images/bola.png" Visibility="Hidden" />
         <Image Height="16" HorizontalAlignment="Left" Margin="236,369,0,0" Name="bola_5" Source="/WpfApplication1;component/Images/bola.png" Stretch="UniformToFill" VerticalAlignment="Top" Width="15" Visibility="Hidden" />
         <Image Height="16" HorizontalAlignment="Left" Margin="242,216,0,0" Name="bola_0" Source="/WpfApplication1;component/Images/bola.png" Stretch="UniformToFill" VerticalAlignment="Top" Width="15" Visibility="Hidden" />
@@ -404,7 +459,6 @@
         <Image Height="16" HorizontalAlignment="Left" Margin="304,337,0,0" Name="bola_36" Source="/WpfApplication1;component/Images/bola.png" Stretch="UniformToFill" VerticalAlignment="Top" Width="15" Visibility="Hidden" />
         <Image Height="16" HorizontalAlignment="Left" Margin="312,327,0,0" Name="bola_13" Source="/WpfApplication1;component/Images/bola.png" Stretch="UniformToFill" VerticalAlignment="Top" Width="15" Visibility="Hidden" />
         <Button Background="#FF00A345" BorderBrush="#FF5F5F5F" BorderThickness="10" Content="X" FontSize="14" FontWeight="Bold" Foreground="#FFEBEBEB" HorizontalAlignment="Right" IsEnabled="True" Margin="0,-8.25,7.75,603.25" Name="Voltar" OverridesDefaultStyle="True" Style="{StaticResource myStyle2}" UseLayoutRounding="False" Width="35" MinWidth="20" MinHeight="20" Click="Voltar_Click" Height="35" />
-        <Image Height="364" HorizontalAlignment="Left" Margin="69,110,0,0" Name="img_animatedBall" Stretch="UniformToFill" VerticalAlignment="Top" Width="331" gif:ImageBehavior.AnimatedSource="/WpfApplication1;component/Images/bola_anim.gif" Visibility="Hidden" Source="/WpfApplication1;component/Images/bola_anim.gif" />
         <GroupBox BorderBrush="{x:Null}" Foreground="{x:Null}" Height="525" HorizontalAlignment="Left" IsEnabled="False" Margin="731,85,0,0" Name="openTable" Style="{StaticResource noBorderGroupBox}" VerticalAlignment="Top" Width="433">
             <Grid Name="tableGrid">
                 <Grid.RowDefinitions>
@@ -573,5 +627,38 @@
         </GroupBox>
         <TextBox Height="457" HorizontalAlignment="Left" Margin="14,136,0,0" Name="textBox_numList" VerticalAlignment="Top" Width="30" Text="11" AcceptsReturn="False" CharacterCasing="Upper" IsReadOnly="True" TextWrapping="Wrap" MaxLength="2" FontSize="20" FontWeight="Bold" Foreground="#FFA7A7A7" Background="{x:Null}" AcceptsTab="False" TextAlignment="Left" BorderBrush="{x:Null}" IsEnabled="True" SelectionOpacity="0" IsHitTestVisible="False" Focusable="False" BorderThickness="0" AllowDrop="False" />
         <Label Content="00" Height="45" HorizontalAlignment="Left" Margin="12,89,0,0" Name="lbl_rouletteNum" VerticalAlignment="Top" Width="45" Foreground="White" FontSize="30" FontWeight="Bold" FontStretch="Normal" />
+        <Image Height="364" HorizontalAlignment="Left" Margin="69,110,0,0" Name="img_animatedBall" Stretch="UniformToFill" VerticalAlignment="Top" Width="331" gif:ImageBehavior.AnimatedSource="/WpfApplication1;component/Images/bola_anim.gif" Visibility="Hidden" Source="/WpfApplication1;component/Images/bola_anim.gif" />
+        <Grid Margin="68,536,687,30" Name="chipGrid">
+            <Button Content="1" Height="60" HorizontalAlignment="Left" Margin="8,4,0,0" Name="chipBtn_1" VerticalAlignment="Top" Width="60" Style="{StaticResource chip}" FontSize="16" FontWeight="Bold" Foreground="{x:Null}" FontFamily="Arial" MinWidth="60" MinHeight="60" Click="chip_Click" ClickMode="Release">
+                <Button.Background>
+                    <ImageBrush ImageSource="/WpfApplication1;component/Images/chip1.png" />
+                </Button.Background>
+            </Button>
+            <Button Content="5" Height="60" HorizontalAlignment="Left" Margin="83,4,0,0" Name="chipBtn_5" VerticalAlignment="Top" Width="60" Style="{StaticResource chip}" FontSize="16" FontWeight="Bold" Foreground="{x:Null}" FontFamily="Arial" MinWidth="60" MinHeight="60" Click="chip_Click" ClickMode="Release">
+                <Button.Background>
+                    <ImageBrush ImageSource="/WpfApplication1;component/Images/chip5.png" />
+                </Button.Background>
+            </Button>
+            <Button Content="10" Height="60" HorizontalAlignment="Left" Margin="158,4,0,0" Name="chipBtn_10" VerticalAlignment="Top" Width="60" Style="{StaticResource chip}" FontSize="16" FontWeight="Bold" Foreground="{x:Null}" FontFamily="Arial" MinWidth="60" MinHeight="60" Click="chip_Click" ClickMode="Release">
+                <Button.Background>
+                    <ImageBrush ImageSource="/WpfApplication1;component/Images/chip10.png" />
+                </Button.Background>
+            </Button>
+            <Button Content="50" FontFamily="Arial" FontSize="16" FontWeight="Bold" Foreground="{x:Null}" Height="60" HorizontalAlignment="Left" Margin="308,4,0,0" MinHeight="60" MinWidth="60" Name="chipBtn_50" Style="{StaticResource chip}" VerticalAlignment="Top" Width="60" Click="chip_Click" ClickMode="Release" OverridesDefaultStyle="True" DataContext="{Binding}">
+                <Button.Background>
+                    <ImageBrush ImageSource="/WpfApplication1;component/Images/chip50.png" />
+                </Button.Background>
+            </Button>
+            <Button Content="20" FontFamily="Arial" FontSize="16" FontWeight="Bold" Foreground="{x:Null}" Height="60" HorizontalAlignment="Left" Margin="233,4,0,0" MinHeight="60" MinWidth="60" Name="chipBtn_20" Style="{StaticResource chip}" VerticalAlignment="Top" Width="60" Click="chip_Click" ClickMode="Release">
+                <Button.Background>
+                    <ImageBrush ImageSource="/WpfApplication1;component/Images/chip20.png" />
+                </Button.Background>
+            </Button>
+            <Button Content="100" FontFamily="Arial" FontSize="16" FontWeight="Bold" Foreground="{x:Null}" Height="60" HorizontalAlignment="Left" Margin="383,4,0,0" MinHeight="40" MinWidth="40" Name="chipBtn_100" Style="{StaticResource chip}" VerticalAlignment="Top" Width="60" Click="chip_Click" OpacityMask="Black" ClickMode="Release">
+                <Button.Background>
+                    <ImageBrush ImageSource="/WpfApplication1;component/Images/chip100.png" />
+                </Button.Background>
+            </Button>
+        </Grid>
     </Grid>
 </Window>

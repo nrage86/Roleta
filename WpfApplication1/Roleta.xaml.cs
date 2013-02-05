@@ -12,6 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WpfAnimatedGif;
+using System.Windows.Media.Animation;
 
 namespace com.indes.jogo_roleta
 {
@@ -73,6 +74,49 @@ namespace com.indes.jogo_roleta
 
             refreshBalance();
 
+
+
+
+
+
+
+
+
+
+
+
+
+            /*
+
+            Storyboard blinkAnimation = TryFindResource("blinkAnimation") as Storyboard;
+            if (blinkAnimation != null)
+            {
+                blinkAnimation.Begin();
+            }
+            */
+            /*
+            var beginsb = (BeginStoryboard)FindResource("PuzzleFall");
+            var sb = beginsb.Storyboard;
+            sb.Begin();
+            */
+
+
+            Storyboard storyboard;
+
+            storyboard = this.TryFindResource("teste") as Storyboard;
+
+
+            storyboard.Begin(luckyRouletteNum, true);
+
+
+
+
+
+
+
+
+
+
             if (lbl_rouletteNum.Content.ToString() != "")
             {
                 textBox_numList.Text = textBox_numList.Text.Insert(textBox_numList.CaretIndex,
@@ -121,6 +165,7 @@ namespace com.indes.jogo_roleta
             string[] betNumbers;
 
             openTable.IsEnabled = false;
+            chipGrid.IsEnabled = false;
             Random random = new Random();
 
             // Configuração e arranque do temporizador
@@ -294,25 +339,25 @@ namespace com.indes.jogo_roleta
 
                     switch (bet_value){
                         case (1):
-                            imgChip.Source = new BitmapImage(new Uri("pack://application:,,,/Images/Ficha5.png"));
+                            imgChip.Source = new BitmapImage(new Uri("pack://application:,,,/Images/chip1.png"));
                             break;
                         case (5):
-                            imgChip.Source = new BitmapImage(new Uri("pack://application:,,,/Images/Ficha6.png"));
+                            imgChip.Source = new BitmapImage(new Uri("pack://application:,,,/Images/chip5.png"));
                             break;
                         case (10):
-                            imgChip.Source = new BitmapImage(new Uri("pack://application:,,,/Images/Ficha4.png"));
+                            imgChip.Source = new BitmapImage(new Uri("pack://application:,,,/Images/chip10.png"));
                             break;
                         case (20):
-                            imgChip.Source = new BitmapImage(new Uri("pack://application:,,,/Images/Ficha.png"));
+                            imgChip.Source = new BitmapImage(new Uri("pack://application:,,,/Images/chip20.png"));
                             break;
                         case (50):
-                            imgChip.Source = new BitmapImage(new Uri("pack://application:,,,/Images/Ficha2.png"));
+                            imgChip.Source = new BitmapImage(new Uri("pack://application:,,,/Images/chip50.png"));
                             break;
                         case (100):
-                            imgChip.Source = new BitmapImage(new Uri("pack://application:,,,/Images/Ficha3.png"));
+                            imgChip.Source = new BitmapImage(new Uri("pack://application:,,,/Images/chip100.png"));
                             break;
                         default:
-                            imgChip.Source = new BitmapImage(new Uri("pack://application:,,,/Images/Ficha.png"));
+                            imgChip.Source = new BitmapImage(new Uri("pack://application:,,,/Images/chip1.png"));
                             break;
                     }
 
@@ -374,7 +419,8 @@ namespace com.indes.jogo_roleta
             clearBets();
             btn_newGame.Visibility = Visibility.Hidden;
             bola.Visibility = Visibility.Hidden;
-            openTable.IsEnabled = false;
+            openTable.IsEnabled = true;
+            chipGrid.IsEnabled = true;
             lbl_hint.Content = "Selecione a ficha para apostar!";
         }
 
@@ -419,11 +465,12 @@ namespace com.indes.jogo_roleta
             {
                 specialBtn.Style = (Style)FindResource("btn");
             }
-
+            /*
             foreach (Button chipBtn in allChipBtns_array)
             {
                 chipBtn.Style = (Style)FindResource("chip");
             }
+            */
         }
 
         /******************************************************************************************* 
