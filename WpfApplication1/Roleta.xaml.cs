@@ -33,16 +33,23 @@ namespace com.indes.jogo_roleta
         private List<Button> betsBtns_list = new Button[] { }.ToList();
         private List<String> betsNumbers_list = new String[] { }.ToList();
         private List<int> betsValues_list = new int[] { }.ToList();
+
+
         private List<Image> betsChips_list = new Image[] { }.ToList();
+        private List<Image> winningChips_list = new Image[] { }.ToList();
+
+
         private System.Windows.Threading.DispatcherTimer dispatcherTimer =
             new System.Windows.Threading.DispatcherTimer();
         private Image bola = new Image();
         private int bet_value = 0;
         private int balance = 1000;
         private int rouletteNumber;
-
-        Canvas tableCanvas = new Canvas();
-        Image imgChip = new Image();
+        private Storyboard storyboard;
+        private Canvas tableCanvas = new Canvas();
+        private Image imgChip = new Image();
+        private DoubleAnimation da = new DoubleAnimation();
+        private RotateTransform rt = new RotateTransform();
 
         /*******************************************************************************************
          * JogoRoleta (Inicio)
@@ -56,6 +63,15 @@ namespace com.indes.jogo_roleta
             lbl_hint.Content = "Selecione a ficha para apostar!";
             lbl_rouletteNum.Content = "";
             textBox_numList.Text = "";
+
+            // Define a nimação da bola
+            da.From = 0;
+            da.To = 360;
+            da.Duration = new Duration(TimeSpan.FromSeconds(0.7));
+            da.RepeatBehavior = new RepeatBehavior(5.0);
+            rt.CenterX = 12;
+            rt.CenterY = -70;
+            ballAnim.RenderTransform = rt;
         }
 
         /*******************************************************************************************
@@ -65,51 +81,31 @@ namespace com.indes.jogo_roleta
         {
             bola = (Image)FindName("bola_" + rouletteNumber);
             bola.Visibility = Visibility.Visible;
-            img_animatedBall.Visibility = Visibility.Hidden;
+            ballAnim.Visibility = Visibility.Hidden;
             btn_newGame.Visibility = Visibility.Visible;
             luckyRouletteNum = (Button)FindName("btn_" + rouletteNumber);
             luckyRouletteNum.Style = (Style)FindResource("luckyNumber");
             dispatcherTimer.Stop();
             dispatcherTimer.Tick -= dispatcherTimer_Tick;
-
             refreshBalance();
 
 
 
 
+            // Inicia a animação do numero sorteado
 
-
-
-
-
-
-
-
-
-            /*
-
-            Storyboard blinkAnimation = TryFindResource("blinkAnimation") as Storyboard;
-            if (blinkAnimation != null)
-            {
-                blinkAnimation.Begin();
-            }
-            */
-            /*
-            var beginsb = (BeginStoryboard)FindResource("PuzzleFall");
-            var sb = beginsb.Storyboard;
-            sb.Begin();
-            */
-
-
-            Storyboard storyboard;
-
-            storyboard = this.TryFindResource("teste") as Storyboard;
-
-
+            storyboard = this.TryFindResource("luckyNum_anim") as Storyboard;
+            //storyboard.SetTargetName(luckyNum_anim, "luckyRouletteNum"); 
             storyboard.Begin(luckyRouletteNum, true);
 
 
-
+            // Inicia a animação das fichas vencedoras
+            foreach (Image chip in winningChips_list)
+            {
+                storyboard = this.TryFindResource("chip_anim") as Storyboard;
+                storyboard.Begin(chip, true);
+            }
+            
 
 
 
@@ -163,6 +159,7 @@ namespace com.indes.jogo_roleta
         {
             List<int> testArray = new int[] { }.ToList();
             string[] betNumbers;
+            int counter=0;
 
             openTable.IsEnabled = false;
             chipGrid.IsEnabled = false;
@@ -171,7 +168,12 @@ namespace com.indes.jogo_roleta
             // Configuração e arranque do temporizador
             dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
             dispatcherTimer.Interval = new TimeSpan(0, 0, 2);
-            img_animatedBall.Visibility = Visibility.Visible;
+
+            // Inicia a animação da bola
+            rt.BeginAnimation(RotateTransform.AngleProperty, da);
+
+            ballAnim.Visibility = Visibility.Visible;
+            
             dispatcherTimer.Start();
 
             if (bet_value != 0)
@@ -186,11 +188,23 @@ namespace com.indes.jogo_roleta
                     {
                         if (rouletteNumber == int.Parse(betNumber))
                         {
+
+
+
+
+
+                            winningChips_list.Add(betsChips_list[counter]);
+
+
+
+
+
                             calculateBalance(betNumbers.Length,betsNumbers_list.IndexOf(bet));
                             btn_newGame.IsEnabled = true;
                             btn_spin.IsEnabled = false;
                         }
                     }
+                    counter++;
                 }
                 btn_spin.IsEnabled = false;
                 betsNumbers_list.Clear();   
@@ -416,6 +430,19 @@ namespace com.indes.jogo_roleta
         *******************************************************************************************/
         private void btn_newGame_Click(object sender, RoutedEventArgs e)
         {
+            storyboard = this.TryFindResource("luckyNum_anim") as Storyboard;
+
+            storyboard.Remove(luckyRouletteNum);
+            /*
+            foreach (Image chip in winningChips_list)
+            {
+                storyboard.Stop(chip);
+            }
+
+
+            storyboard.SkipToFill();
+            */
+
             clearBets();
             btn_newGame.Visibility = Visibility.Hidden;
             bola.Visibility = Visibility.Hidden;
@@ -453,6 +480,7 @@ namespace com.indes.jogo_roleta
             betsValues_list.Clear();
             betsBtns_list.Clear();
             betsChips_list.Clear();
+            winningChips_list.Clear();
 
             tableCanvas.Children.Clear();
 

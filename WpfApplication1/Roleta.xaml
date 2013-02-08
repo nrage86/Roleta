@@ -15,16 +15,25 @@
 
 
 
-        <Storyboard x:Key="teste">
+        <Storyboard x:Key="luckyNum_anim">
             <DoubleAnimation 
                 Storyboard.TargetProperty="Opacity"
                 From="1"
                 To="0"
-                RepeatBehavior="10x"
+                RepeatBehavior="Forever"
                 AutoReverse="True"
-                Duration="0:0:0.3"/>
+                Duration="0:0:0.4"/>
         </Storyboard>
 
+        <Storyboard x:Key="chip_anim">
+            <DoubleAnimation 
+                Storyboard.TargetProperty="Opacity"
+                From="1"
+                To="0"
+                RepeatBehavior="Forever"
+                AutoReverse="True"
+                Duration="0:0:0.2"/>
+        </Storyboard>
 
 
 
@@ -410,8 +419,6 @@
     <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Width="1200" Height="630" Name="layoutGrid" MinHeight="60" MinWidth="60">
         <Grid.ColumnDefinitions>
         </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-        </Grid.RowDefinitions>
         <Grid.Background>
             <ImageBrush ImageSource="/WpfApplication1;component/Images/Mesa.png" />
         </Grid.Background>
@@ -627,8 +634,7 @@
         </GroupBox>
         <TextBox Height="457" HorizontalAlignment="Left" Margin="14,136,0,0" Name="textBox_numList" VerticalAlignment="Top" Width="30" Text="11" AcceptsReturn="False" CharacterCasing="Upper" IsReadOnly="True" TextWrapping="Wrap" MaxLength="2" FontSize="20" FontWeight="Bold" Foreground="#FFA7A7A7" Background="{x:Null}" AcceptsTab="False" TextAlignment="Left" BorderBrush="{x:Null}" IsEnabled="True" SelectionOpacity="0" IsHitTestVisible="False" Focusable="False" BorderThickness="0" AllowDrop="False" />
         <Label Content="00" Height="45" HorizontalAlignment="Left" Margin="12,89,0,0" Name="lbl_rouletteNum" VerticalAlignment="Top" Width="45" Foreground="White" FontSize="30" FontWeight="Bold" FontStretch="Normal" />
-        <Image Height="364" HorizontalAlignment="Left" Margin="69,110,0,0" Name="img_animatedBall" Stretch="UniformToFill" VerticalAlignment="Top" Width="331" gif:ImageBehavior.AnimatedSource="/WpfApplication1;component/Images/bola_anim.gif" Visibility="Hidden" Source="/WpfApplication1;component/Images/bola_anim.gif" />
-        <Grid Margin="68,536,687,30" Name="chipGrid">
+        <Grid Margin="68,543,687,23" Name="chipGrid">
             <Button Content="1" Height="60" HorizontalAlignment="Left" Margin="8,4,0,0" Name="chipBtn_1" VerticalAlignment="Top" Width="60" Style="{StaticResource chip}" FontSize="16" FontWeight="Bold" Foreground="{x:Null}" FontFamily="Arial" MinWidth="60" MinHeight="60" Click="chip_Click" ClickMode="Release">
                 <Button.Background>
                     <ImageBrush ImageSource="/WpfApplication1;component/Images/chip1.png" />
@@ -660,5 +666,6 @@
                 </Button.Background>
             </Button>
         </Grid>
+        <Image Height="16" HorizontalAlignment="Right" Margin="0,369,948,0" Name="ballAnim" Stretch="UniformToFill" VerticalAlignment="Top" Width="15" Source="/WpfApplication1;component/Images/bola.png" StretchDirection="Both" Visibility="Hidden" />
     </Grid>
 </Window>
